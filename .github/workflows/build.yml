@@ -17,7 +17,7 @@ jobs:
           - os: windows-2022
             setupSnippet:
             bootstrap-vcpkg: ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
-            nuget: .$(${{ env.VCPKG_EXE }} fetch nuget)
+            nuget: "$(${{ env.VCPKG_EXE }} fetch nuget)"
             configurePreset: win64
             buildPreset: win64-release
             artifactPath: ${{ github.workspace }}/build/win64/src/Release/main.exe
@@ -25,7 +25,7 @@ jobs:
           - os: macos-latest
             setupSnippet: brew install mono
             bootstrap-vcpkg: ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
-            nuget: mono $(${{ env.VCPKG_EXE }} fetch nuget)
+            nuget: "mono $(${{ env.VCPKG_EXE }} fetch nuget)"
             configurePreset: clang-multi
             buildPreset: clang-release
             artifactPath: ${{ github.workspace }}/build/clang-multi/src/Release/main
