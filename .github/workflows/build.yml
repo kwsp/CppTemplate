@@ -10,46 +10,67 @@ env:
   VCPKG_BINARY_SOURCES: "clear;nuget,https://nuget.pkg.github.com/kwsp/index.json,readwrite"
 
 jobs:
-  Build-Win64:
-    runs-on: windows-2022
+  Build:
+    strategy:
+      matrix:
+        os: [windows-2022, macos-latest]
+        include:
+          - os: windows-2022
+            setupSnippet:
+            bootstrap-vcpkg: ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+            nuget: .$(${{ env.VCPKG_EXE }} fetch nuget)
+            configurePreset: win64
+            buildPreset: win64-release
+            artifactPath: ${{ github.workspace }}/build/win64/src/Release/main.exe
+
+          - os: macos-latest
+            setupSnippet: brew install mono
+            bootstrap-vcpkg: ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.sh
+            nuget: mono $(${{ env.VCPKG_EXE }} fetch nuget)
+            configurePreset: clang-multi
+            buildPreset: clang-release
+            artifactPath: ${{ github.workspace }}/build/clang-multi/src/Release/main
+
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: true
+
+      - run: ${{ matrix.setupSnippet }}
 
       - name: Setup VCPKG
         shell: pwsh
         run: |
           cd ${{ github.workspace }}
           git clone https://github.com/microsoft/vcpkg
-          ${{ github.workspace }}/vcpkg/bootstrap-vcpkg.bat
+          ${{ matrix.bootstrap-vcpkg }}
 
       - name: Add NuGet sources
         shell: pwsh
         run: |
-          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          ${{ matrix.nuget }} `
             sources add `
             -Source "${{ env.FEED_URL }}" `
             -StorePasswordInClearText `
             -Name GitHubPackages `
             -UserName "${{ env.USERNAME }}" `
             -Password "${{ secrets.GH_PACKAGES_TOKEN }}"
-          .$(${{ env.VCPKG_EXE }} fetch nuget) `
+          ${{ matrix.nuget }} `
             setapikey "${{ secrets.GH_PACKAGES_TOKEN }}" `
             -Source "${{ env.FEED_URL }}"
 
       - name: CMake configure
         shell: pwsh
-        run: cmake --preset win64
+        run: cmake --preset ${{ matrix.configurePreset }}
 
       - name: CMake build
         shell: pwsh
-        run: cmake --build --preset win64-release
+        run: cmake --build --preset ${{ matrix.buildPreset }}
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: artifact
-          path: ${{ github.workspace }}/build/win64/src/Release/main.exe
+          path: ${{ matrix.artifactPath }}
           if-no-files-found: "warn" # output a warning if no files are found.
-
