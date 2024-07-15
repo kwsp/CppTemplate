@@ -2,5 +2,24 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "cpp-template",
   "version": "0.1",
-  "dependencies": ["fmt"]
+  "dependencies": [
+    "fmt",
+    "qtbase",
+    "tbb",
+    "qcustomplot",
+    {
+      "name": "opencv4",
+      "features": ["contrib", "dnn", "png", "vulkan", "tbb", "png", "world"]
+    },
+    {
+      "name": "fftw3",
+      "platform": "x64",
+      "features": ["avx2", "threads"]
+    },
+    {
+      "name": "fftw3",
+      "platform": "!x64",
+      "features": ["threads"]
+    }
+  ]
 }
