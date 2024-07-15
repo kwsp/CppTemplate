@@ -10,10 +10,7 @@
       "name": "base",
       "hidden": true,
       "binaryDir": "build/${presetName}",
-      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-      "cacheVariables": {
-        "VCPKG_OVERLAY_TRIPLETS": "${sourceDir}/triplets"
-      }
+      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake"
     },
     {
       "name": "win64-cl-base",
