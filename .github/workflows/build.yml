@@ -98,7 +98,11 @@ jobs:
 
       - name: Add NuGet sources
         shell: bash
+        env:
+          gh_packages_secret: ${{ secrets.GH_PACKAGES_TOKEN }}
+        if: ${{ env.gh_packages_secret != '' }}
         run: |
+          [ -z "${{ env.USERNAME }}" ]
           mono `${{ env.VCPKG_EXE }} fetch nuget | tail -n 1` \
             sources add \
             -Source "${{ env.FEED_URL }}" \
