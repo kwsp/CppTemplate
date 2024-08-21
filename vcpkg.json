@@ -2,5 +2,23 @@
   "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
   "name": "cpp-template",
   "version": "0.1",
-  "dependencies": ["fmt"]
+  "dependencies": [
+    "fmt",
+    "armadillo",
+    "qtbase",
+    "tbb",
+    {
+      "name": "opencv4",
+      "features": ["contrib", "dnn", "png", "vulkan", "tbb", "png", "world"]
+    },
+    {
+      "name": "halide",
+      "platform": "osx",
+      "features": ["target-metal"]
+    },
+    {
+      "name": "halide",
+      "platform": "!osx"
+    }
+  ]
 }
