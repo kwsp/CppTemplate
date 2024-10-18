@@ -165,43 +165,5 @@
       "configurePreset": "cl",
       "configuration": "Release"
     }
-  ],
-  "testPresets": [
-    {
-      "name": "test-win64-debug",
-      "displayName": "Test (Debug)",
-      "configuration": "Debug",
-      "configurePreset": "win64"
-    },
-    {
-      "name": "test-win64-release",
-      "displayName": "Test (Release)",
-      "configuration": "Release",
-      "configurePreset": "win64"
-    },
-    {
-      "name": "test-clang-debug",
-      "displayName": "Test (Debug)",
-      "configuration": "Debug",
-      "configurePreset": "clang"
-    },
-    {
-      "name": "test-clang-release",
-      "displayName": "Test (Release)",
-      "configuration": "Release",
-      "configurePreset": "clang"
-    },
-    {
-      "name": "test-cl-debug",
-      "displayName": "Test (Debug)",
-      "configuration": "Debug",
-      "configurePreset": "cl"
-    },
-    {
-      "name": "test-cl-release",
-      "displayName": "Test (Release)",
-      "configuration": "Release",
-      "configurePreset": "cl"
-    }
   ]
 }
