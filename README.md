@@ -17,4 +17,4 @@ Features:
 - GitHub Action for reproducible builds.
   - 2 layers of cache: GitHub Actions Cache (`x-gha`) and GitHub Packages cache (`nuget`)
   - GitHub Actions cache should just work™️.
-  - GitHub Packages cache requires you to create a Personal Access Token (classic) with `write:packages` permissions and saved to "Action Secrets" as a "Repository Secret" named `GH_PACKAGES_TOKEN`.
+  - GitHub Packages cache requires a Personal Access Token (classic) with `write:packages` permissions and saved to "Action Secrets" as a "Repository Secret" named `GH_PACKAGES_TOKEN`.
