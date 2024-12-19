@@ -5,14 +5,12 @@ Features:
 - VCPKG for package management.
 - CMake with CMakePresets for cross-platform builds.
   - Configuration presets:
-    - `ninja`: A generic Ninja Multi-Config preset.
-    - `clang`: A Clang specific Ninja Multi-Config preset.
-    - `cl`: (Windows x64) CL specific Ninja Multi-Config preset.
-    - `win64`: (Windows x64) Visual Studio 2022 preset.
+    - `clang`: (Non-windows only) Clang + Ninja Multi-Config.
+    - `win64`: (Windows x64 only) Visual Studio 2022.
+    - `cl`: (Windows x64 only) CL Ninja Multi-Config.
+    - `clang-cl`: (Windows x64 only) ClangCL Ninja Multi-Config.
   - Build presets:
     - Debug, RelWithDebInfo, and Release build presets are provided for all configuration presets above. Just add `debug`, `relwithdebinfo`, or `release`. For example, the presets for `clang` are `clang-debug`, `clang-relwithdebinfo`, and `clang-release`.
-  - Test presets:
-    - Just add `test-` to the build presets names.
 - Clang-Tidy and Clang-Format.
 - GitHub Action for reproducible builds.
   - 2 layers of cache: GitHub Actions Cache (`x-gha`) and GitHub Packages cache (`nuget`)
